@@ -4,19 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" href="<?= get_template_directory_uri() ?>/assets/css/app.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <script type="text/JavaScript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script type="text/JavaScript" src="<?= get_template_directory_uri() ?>/assets/js/main.js"></script>
+
     <title><?php bloginfo('name'); ?></title>
+    <?php
+    // CSS
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css');
+    wp_enqueue_style('google-web-font', 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+    wp_enqueue_style('food-science-style', get_template_directory_uri() . '/assets/css/app.css');
+
+    // JS
+    wp_enqueue_script(
+        'food-science-main',
+        get_template_directory_uri() . '/assets/js/main.js',
+        ['jquery'],
+        filemtime(get_template_directory() . '/assets/js/main.js'),
+        [
+            'strategy' => 'defer',
+            // 'in_footer' => true //(もしwp_footerで出力する場合)
+        ]
+    );
+    wp_enqueue_script('jquery');
+    ?>
+    <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+    <?php wp_body_open(); ?>
     <header class="header">
         <div class="header_logo">
             <h1 class="logo">
-                <a href="<?= home_url(); ?>"><?php bloginfo('name'); ?>
+                <a href="<?= home_url(); ?>">FOOD SCIENCE
                     <span>
                         <?php bloginfo('description'); ?>
                     </span>
