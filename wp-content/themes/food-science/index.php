@@ -7,9 +7,9 @@
     </div>
 
     <div class="kv_slider js-slider">
-      <div class="kv_sliderItem" style="background-image: url('<?= get_template_directory_uri() ?>/assets/img/home/kv-01@2x.jpg');"></div>
-      <div class="kv_sliderItem" style="background-image: url('<?= get_template_directory_uri() ?>/assets/img/home/kv-02@2x.jpg');"></div>
-      <div class="kv_sliderItem" style="background-image: url('<?= get_template_directory_uri() ?>/assets/img/home/kv-03@2x.jpg');"></div>
+      <div class="kv_sliderItem" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/kv-01@2x.jpg');"></div>
+      <div class="kv_sliderItem" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/kv-02@2x.jpg');"></div>
+      <div class="kv_sliderItem" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/kv-03@2x.jpg');"></div>
     </div>
     <div class="kv_overlay"></div>
 
@@ -29,9 +29,9 @@
         <h2 class="heading heading-primary"><span>コンセプト</span>CONCEPT</h2>
       </header>
       <div class="section_pic">
-        <div><img src="<?= get_template_directory_uri() ?>/assets/img/home/concept_img01@2x.png" alt=""></div>
-        <div><img src="<?= get_template_directory_uri() ?>/assets/img/home/concept_img02@2x.png" alt=""></div>
-        <div><img src="<?= get_template_directory_uri() ?>/assets/img/home/concept_img03@2x.png" alt=""></div>
+        <div><img src="<?= get_template_directory_uri(); ?>/assets/img/home/concept_img01@2x.png" alt=""></div>
+        <div><img src="<?= get_template_directory_uri(); ?>/assets/img/home/concept_img02@2x.png" alt=""></div>
+        <div><img src="<?= get_template_directory_uri(); ?>/assets/img/home/concept_img03@2x.png" alt=""></div>
       </div>
     </div>
     <div class="section_body">
@@ -59,7 +59,20 @@
           <?php while (have_posts()): the_post(); ?>
             <section id="post-<?php the_ID(); ?>" <?php post_class('cardList_item'); ?>>
               <a href="<?php the_permalink(); ?>" class="card">
-                <div class="card_label"><span class="label label-black">お知らせ</span></div>
+
+                <!-- カテゴリー-->
+                <?php
+                $categories = get_the_category();
+                if ($categories):
+                ?>
+                  <div class="card_label">
+                    <?php foreach ($categories as $category): ?>
+                      <span class="label label-black"><?= $category->name; ?></span>
+                    <?php endforeach; ?>
+                  </div>
+                <?php endif; ?>
+
+                <!-- アイキャッチ画像-->
                 <div class="card_pic">
                   <?php if (has_post_thumbnail()): ?>
                     <?php the_post_thumbnail('medium'); ?>
@@ -67,10 +80,13 @@
                     <img src="<?= get_template_directory_uri(); ?>/assets/img/common/noimage.png" alt="">
                   <?php endif; ?>
                 </div>
+
                 <div class="card_body">
+                  <!-- タイトル -->
                   <h2 class="card_title"><?php the_title(); ?></h2>
-                  <time datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y年m月d日'); ?></time>
-                  <!-- ↑ 固定値を the_time() に変更 -->
+
+                  <!-- 投稿日時 -->
+                  <time datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y年m月d日'); ?>更新</time>
                 </div>
               </a>
             </section>
