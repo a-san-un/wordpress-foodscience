@@ -17,7 +17,7 @@
           </ul>
         </div>
 
-        <div class="archive_yealy">
+        <div class="archive_yearly">
           <h2 class="archive_title">年別</h2>
           <ul class="archive_list">
             <li><a href='#'>2023</a></li>
